@@ -38,6 +38,14 @@ class Node:
 		
 pygame.init()
  
+def FindFScore(array):
+	for element in array:
+		list.sort(array)
+	print ("List: ", array[0])
+	
+	
+ 
+ 
 # Set the width and height of the screen [width, height]
 size = (700, 500)
 
@@ -51,13 +59,14 @@ done = False
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
  
+list1 = [4,6,8,3,8]
+FindFScore(list1);
 	
 while not done:
     #Main event loop
-	#
+	
 	
     for event in pygame.event.get():
-	
 	
         if event.type == pygame.QUIT:
             done = True
