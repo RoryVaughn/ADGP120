@@ -1,10 +1,8 @@
-import pygame
-
+import pygame as gfx
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
-
 class Node:
 	def __init__(self, x, y):
 		self.parent = None		
@@ -22,7 +20,7 @@ class Node:
 
 	def draw(self, screen, color):
 		margin = self.margin
-		color = (0, 0, 255) if (self.walkable) else (255,0,0)
+		color = WHITE if (self.walkable) else (255,0,0)
 		gfx.draw.rect(screen, color, (self.left , self.top, self.width, self.height))
 		
 	def setWalk(self, walkable):
@@ -35,54 +33,28 @@ class Node:
 	def setG(self, val):
 		self.g = val
 
-		
-pygame.init()
- 
+class Astar:
+	def __init__(self, SearchSpace, Start, Goal):
+		self.OPEN = []
+		self.CLOSED = []		
+	
+	def Run(self):
+		self.OPEN.append(Start)
+		while not self.OPEN:
+			current = self.LowestF(self.OPEN)
+			
+	def LowestF(self, Nodes):
+		lowestF = -1
+		nodeWithLowestF = None
+		for node in Nodes:
+			if(node.f > lowestF):
+				lowestF = node.f
+				nodeWithLowestF = node
+		return nodeWithLowestF
+
 def FindFScore(array):
 	for element in array:
 		list.sort(array)
 	print ("List: ", array[0])
 	
-	
- 
- 
-# Set the width and height of the screen [width, height]
-size = (700, 500)
-
-screen = pygame.display.set_mode(size)
- 
-pygame.display.set_caption("Astar")
- 
-
-done = False
- 
-# Used to manage how fast the screen updates
-clock = pygame.time.Clock()
- 
-list1 = [4,6,8,3,8]
-FindFScore(list1);
-	
-while not done:
-    #Main event loop
-	
-	
-    for event in pygame.event.get():
-	
-        if event.type == pygame.QUIT:
-            done = True
- 
-   
- 
-    
-    screen.fill(BLACK)
- 
-    
- 
-   
-    pygame.display.flip()
- 
-    # Limit to 60 frames per second
-    clock.tick(60)
- 
-# Close the window and quit.
-pygame.quit()
+FindFScore(Node)
