@@ -38,7 +38,7 @@ class Astar:
 		self.OPEN = []
 		self.CLOSED = []		
 	
-	def Run(self):
+	def Run(self):hg
 		self.OPEN.append(Start)
 		while not self.OPEN:
 			current = self.LowestF(self.OPEN)
