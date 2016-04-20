@@ -57,4 +57,4 @@ def FindFScore(array):
 		list.sort(array)
 	print ("List: ", array[0])
 	
-FindFScore(Node)
+#FindFScore(Node)
