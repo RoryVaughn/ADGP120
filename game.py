@@ -3,21 +3,26 @@ from Astar import *
 
 def main():
 
-
+	i = 0
 	#create the search space to look through
 	searchSpace = []
-	for x in range(27):
-		for y in range(19):
+	for x in range(10):
+		for y in range(10):
+			print x, ",", y, "Index", i
 			n = Node(x, y)
+			i+=1
 			#x goes right
 			#y goes down
 			unwalkable = True if (x >= 4 and x <= 20 and y >= 5 and y <= 14) else False
-			print("x =:{mx} y=: {my} | pos =: {position}".format(mx = x, my = y, position = n.pos))
-			
-			n.setWalk(unwalkable)
+			#print("x =:{mx} y=: {my} | pos =: {position}".format(mx = x, my = y, position = n.pos))
+			#n.setWalk(unwalkable)
 			searchSpace.append(n)
 			
-
+	dickbutt = Astar(searchSpace, searchSpace[0], searchSpace[5])
+	Node1 = Node (2,5)
+	Node2 = Node (4,8)
+	dickbutt.ManDis (Node1, Node2)
+	#dickbutt.FindAdj()
 	# Initialize pygame
 	pygame.init()
 
@@ -43,14 +48,16 @@ def main():
 				done = True	 # Flag that we are done so we exit this loop
 
 
-
+	
 
 		# Set the screen background
 		screen.fill((0,0,0))
 
 		for i in searchSpace:
 			i.draw(screen, (255,255,255))
-		
+			
+			
+			
 		# Limit to 60 frames per second
 		clock.tick(60)
 

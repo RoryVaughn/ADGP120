@@ -13,7 +13,9 @@ class Node:
 		self.left = (self.margin + self.width) *  x + self.margin
 		self.top = (self.margin + self.height) *  y + self.margin
 		self.walkable = True
-		self.pos = (x, self.height - y)
+		self.pos = (x, y)
+		self.xPos = x
+		self.yPos = y
 		self.f = None
 		self.g = None
 		self.h = None
@@ -37,8 +39,12 @@ class Astar:
 	def __init__(self, SearchSpace, Start, Goal):
 		self.OPEN = []
 		self.CLOSED = []		
-	
-	def Run(self):hg
+		self.Start = Start
+		self.Goal = Goal
+		self.SearchSpace = SearchSpace
+		self.currentNode = Start
+		
+	def Run(self):
 		self.OPEN.append(Start)
 		while not self.OPEN:
 			current = self.LowestF(self.OPEN)
@@ -51,6 +57,20 @@ class Astar:
 				lowestF = node.f
 				nodeWithLowestF = node
 		return nodeWithLowestF
+		
+	def ManDis (self, Node1, Node2):
+		Xdis = abs(Node1.pos[0]-Node2.pos[0])
+		Ydis = abs(Node1.pos[1]-Node2.pos[1])
+		print Xdis, ",", Ydis
+		return Xdis, Ydis
+	
+	#def FindAdj (self):
+		#for n in self.SearchSpace:
+			
+			
+		
+	
+	
 
 def FindFScore(array):
 	for element in array:
