@@ -64,8 +64,11 @@ class Astar:
 		print Xdis, ",", Ydis
 		return Xdis, Ydis
 	
-	#def FindAdj (self):
+	#list = 
+	
+	#def FindAdj (self, CurrentNode):
 		#for n in self.SearchSpace:
+		#Top = n
 			
 			
 		
