@@ -2,15 +2,16 @@ import pygame
 from Astar import *
 
 def main():
-
-	i = 0
+	rows = 10
+	col = 10
+	id = 0
 	#create the search space to look through
 	searchSpace = []
-	for x in range(10):
-		for y in range(10):
-			print x, ",", y, "Index", i
-			n = Node(x, y)
-			i+=1
+	for x in range(col):
+		for y in range(rows):
+			print x, ",", y, "Index", id
+			n = Node(x, y, id)
+			id+=1
 			#x goes right
 			#y goes down
 			unwalkable = True if (x >= 4 and x <= 20 and y >= 5 and y <= 14) else False
@@ -18,10 +19,12 @@ def main():
 			#n.setWalk(unwalkable)
 			searchSpace.append(n)
 			
-	dickbutt = Astar(searchSpace, searchSpace[0], searchSpace[5])
-	Node1 = Node (2,5)
-	Node2 = Node (4,8)
+	dickbutt = Astar(searchSpace, searchSpace[0], searchSpace[10])
+	Node1 = Node (2,5,25)
+	Node2 = Node (4,8,48)
+	Node3 = Node (x -1,y -1,id -1)
 	dickbutt.ManDis (Node1, Node2)
+	dickbutt.FindAdj (Node3)
 	#dickbutt.FindAdj()
 	# Initialize pygame
 	pygame.init()

@@ -4,8 +4,9 @@ WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 class Node:
-	def __init__(self, x, y):
+	def __init__(self, x, y, id):
 		self.parent = None		
+		self.id = id
 		self.color = WHITE
 		self.width = 20
 		self.height = 20
@@ -64,14 +65,28 @@ class Astar:
 		print Xdis, ",", Ydis
 		return Xdis, Ydis
 	
-	#list = 
-	
-	#def FindAdj (self, CurrentNode):
+	def FindAdj (self, CurrentNode):
 		#for n in self.SearchSpace:
-		#Top = n
-			
-			
-		
+		rows = 10
+		col = 10
+		North = CurrentNode.id - rows 
+		South = CurrentNode.id + rows
+		West = CurrentNode.id - 1
+		East = CurrentNode.id + 1
+		Northwest = CurrentNode.id - rows - 1
+		Northeast = CurrentNode.id - rows + 1
+		Southwest = CurrentNode.id + rows - 1
+		Southeast = CurrentNode.id + rows + 1
+		if CurrentNode.id % rows == 0:
+			West = 0
+			Northwest = 0
+			Southwest = 0
+		if CurrentNode.id % rows == 9:
+			East = 0
+			Northeast = 0
+			Southeast = 0
+		print "North: ", North, ", South: ", South, ", West: ", West, ", East: ", East
+		print "Northwest: ", Northwest, ", Northeast: ", Northeast, ", Southeast: ", Southwest, ", Southeast: ", Southeast
 	
 	
 
