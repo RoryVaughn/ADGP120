@@ -25,7 +25,7 @@ def main():
 	Node3 = Node (x -1,y -1,id -1)
 	dickbutt.ManDis (Node1, Node2)
 	dickbutt.FindAdj (Node3)
-	#dickbutt.FindAdj()
+	
 	# Initialize pygame
 	pygame.init()
 

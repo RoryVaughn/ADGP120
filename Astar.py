@@ -81,7 +81,7 @@ class Astar:
 			West = 0
 			Northwest = 0
 			Southwest = 0
-		if CurrentNode.id % rows == 9:
+		if CurrentNode.id % rows == (rows - 1):
 			East = 0
 			Northeast = 0
 			Southeast = 0
