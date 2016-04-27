@@ -55,7 +55,7 @@ def main():
 
 		# Set the screen background
 		screen.fill((0,0,0))
-
+ 
 		for i in searchSpace:
 			i.draw(screen, (255,255,255))
 			

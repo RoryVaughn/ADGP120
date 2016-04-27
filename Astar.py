@@ -64,11 +64,14 @@ class Astar:
 		Ydis = abs(Node1.pos[1]-Node2.pos[1])
 		print Xdis, ",", Ydis
 		return Xdis, Ydis
+		
 	
 	def FindAdj (self, CurrentNode):
 		#for n in self.SearchSpace:
 		rows = 10
 		col = 10
+		adj = []
+		Current = CurrentNode.id
 		North = CurrentNode.id - rows 
 		South = CurrentNode.id + rows
 		West = CurrentNode.id - 1
@@ -85,14 +88,13 @@ class Astar:
 			East = 0
 			Northeast = 0
 			Southeast = 0
+		adj = [Current,North,South,East,West,Northeast,Northwest,Southeast,Southwest]
 		print "North: ", North, ", South: ", South, ", West: ", West, ", East: ", East
 		print "Northwest: ", Northwest, ", Northeast: ", Northeast, ", Southeast: ", Southwest, ", Southeast: ", Southeast
 	
-	
-
-def FindFScore(array):
-	for element in array:
-		list.sort(array)
-	print ("List: ", array[0])
+	def FindFScore(array):
+		for element in array:
+			list.sort(array)
+		print ("List: ", array[0])
 	
 #FindFScore(Node)
