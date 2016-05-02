@@ -50,6 +50,7 @@ class Astar:
 		while not self.OPEN:
 			current = self.LowestF(self.OPEN)
 			
+	#This is the f Score finder that Matthew that doesnt work.
 	def LowestF(self, Nodes):
 		lowestF = -1
 		nodeWithLowestF = None
