@@ -4,24 +4,24 @@ WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 class Node:
-	def __init__(self, x, y, id):
+	def __init__(self, M_x, M_y, M_id):
 		self.parent = None		
-		self.id = id
+		self.id = M_id
 		self.color = WHITE
 		self.width = 20
 		self.height = 20
 		self.margin = 5
-		self.left = (self.margin + self.width) *  x + self.margin
-		self.top = (self.margin + self.height) *  y + self.margin
+		self.left = (self.margin + self.width) *  M_x + self.margin
+		self.top = (self.margin + self.height) *  M_y + self.margin
 		self.walkable = True
-		self.pos = (x, y)
-		self.xPos = x
-		self.yPos = y
-		self.f = None
+		self.pos = (M_x, M_y)
+		self.xPos = M_x
+		self.yPos = M_y
+		self.f = 0
 		#f is g + h
-		self.g = None
+		self.g = 0
 		#g is the triangle thing with 0, 10, 14, and 20
-		self.h = None
+		self.h = 0
 		#h is Manhattan
 
 	def draw(self, screen, color):
@@ -59,26 +59,16 @@ class Astar:
 			self.OPEN.remove(current)
 			self.CLOSED.append(current)
 				
-			
-			
-	#This is the f Score finder that Matthew that doesnt work.
-	def LowestF(self, Nodes):
-		lowestF = -1
-		nodeWithLowestF = None
-		for node in Nodes:
-			if(node.f > lowestF):
-				lowestF = node.f
-				nodeWithLowestF = node
-		return nodeWithLowestF
 		
 	def ManDis (self, Node1, Node2):
 		Xdis = abs(Node1.pos[0]-Node2.pos[0])
 		Ydis = abs(Node1.pos[1]-Node2.pos[1])
-		print Xdis, ",", Ydis
-		return Xdis, Ydis
+		#print Xdis, ",", Ydis
+		Node2.h = Xdis + Ydis
 		
 	
 	def FindAdj (self, CurrentNode):
+		node = CurrentNode
 		#for n in self.SearchSpace:
 		rows = 10
 		col = 10
@@ -92,6 +82,7 @@ class Astar:
 		Northeast = CurrentNode.id - rows + 1
 		Southwest = CurrentNode.id + rows - 1
 		Southeast = CurrentNode.id + rows + 1
+		neNode = SearchSpace[Northwest]
 		if CurrentNode.id % rows == 0:
 			West = 200
 			Northwest = 200
@@ -104,7 +95,24 @@ class Astar:
 			node.walkable = false
 		
 			
-		adj = [Current,North,South,East,West,Northeast,Northwest,Southeast,Southwest]
+		node.adj = [North,South,East,West,Northeast,Northwest,Southeast,Southwest]
+		
+		
+		
+		for a in adj:
+			if a in self.searchSpace:
+				node.adj.append(self.SearchSpace[a])
+				print(SearchSpace[a])
+				
+		#self.SearchSpace[adj[0]].g = 0
+		#self.SearchSpace[adj[1]].g = 10
+		#self.SearchSpace[adj[2]].g = 10
+		#self.SearchSpace[adj[3]].g = 10
+		#self.SearchSpace[adj[4]].g = 10
+		#self.SearchSpace[adj[5]].g = 14
+		#self.SearchSpace[adj[6]].g = 14
+		#self.SearchSpace[adj[7]].g = 14
+		#self.SearchSpace[adj[8]].g = 14
 		
 		print "North: ", North, ", South: ", South, ", West: ", West, ", East: ", East
 		print "Northwest: ", Northwest, ", Northeast: ", Northeast, ", Southeast: ", Southwest, ", Southeast: ", Southeast

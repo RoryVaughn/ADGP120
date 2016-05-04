@@ -14,6 +14,7 @@ def main():
 			id+=1
 			#x goes right
 			#y goes down
+			
 			unwalkable = True if (x >= 4 and x <= 20 and y >= 5 and y <= 14) else False
 			#print("x =:{mx} y=: {my} | pos =: {position}".format(mx = x, my = y, position = n.pos))
 			n.setWalk(unwalkable)
@@ -21,13 +22,27 @@ def main():
 				n.walkable = False
 			searchSpace.append(n)
 			
-	dickbutt = Astar(searchSpace, searchSpace[0], searchSpace[10])
+	dickbutt = Astar(searchSpace, searchSpace[77], searchSpace[98])
+	
+	#Thie following code is what sets the H value to all of the nodes
+	c = 0
+	for j in searchSpace:
+		n.H = dickbutt.ManDis(searchSpace[77], searchSpace[c])
+		c+=1
+	#################################
 	dickbutt.Run
-	Node1 = Node (2,5,25)
-	Node2 = Node (4,8,48)
+	
+	
+	
+	
+	
+	
+	
+	#dickbutt.ManDis (searchSpace[0], searchSpace[10])
 	Node3 = Node (x -1,y -1,id -1)
-	dickbutt.ManDis (searchSpace[0], searchSpace[10])
 	dickbutt.FindAdj (Node3)
+	print(searchSpace[78].g)
+	
 	
 	
 	# Initialize pygame
