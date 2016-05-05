@@ -1,47 +1,55 @@
 import pygame
 from Astar import *
+from random import randint
 
 def main():
 	rows = 10
 	col = 10
 	id = 0
+
 	#create the search space to look through
 	searchSpace = []
-	for x in range(col):
-		for y in range(rows):
+	for y in range(col):
+		for x in range(rows):
 			print x, ",", y, "Index", id
 			n = Node(x, y, id)
 			id+=1
 			#x goes right
 			#y goes down
 			
-			unwalkable = True if (x >= 4 and x <= 20 and y >= 5 and y <= 14) else False
+			unwalkable = True if (x >= 1 and x <= 8 and y >= 1 and y <= 8) else False
 			#print("x =:{mx} y=: {my} | pos =: {position}".format(mx = x, my = y, position = n.pos))
 			n.setWalk(unwalkable)
-			if n.id == 89:
-				n.walkable = False
-			searchSpace.append(n)
 			
-	dickbutt = Astar(searchSpace, searchSpace[77], searchSpace[98])
+			for x in range(rows):
+				if n.id == randint(40,60):
+					n.walkable = False
+			
+			searchSpace.append(n)
 	
-	#Thie following code is what sets the H value to all of the nodes
+
+	Instance = Astar(searchSpace, searchSpace[13], searchSpace[85])
+	
+	
+	#The following code is what sets the H value to all of the nodes
 	c = 0
 	for j in searchSpace:
-		n.H = dickbutt.ManDis(searchSpace[77], searchSpace[c])
+		n.H = Instance.ManDis(searchSpace[13], searchSpace[c])
 		c+=1
+	
 	#################################
-	dickbutt.Run
-	
-	
-	
-	
 	
 	
 	
 	#dickbutt.ManDis (searchSpace[0], searchSpace[10])
-	Node3 = Node (x -1,y -1,id -1)
-	dickbutt.FindAdj (Node3)
-	print(searchSpace[78].g)
+	Node3 = Node (3 , 3, 33)
+	Instance.OPEN.append(searchSpace[13])
+	Instance.FindAdj (Instance.OPEN[0])
+	
+	#Instance.FindFScore(Instance.OPEN)
+		
+	
+	#print(searchSpace[])
 	
 	
 	

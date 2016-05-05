@@ -41,24 +41,14 @@ class Node:
 		self.g = val
 
 class Astar:
-	def __init__(self, SearchSpace, Start, Goal):
+	def __init__(self, M_SearchSpace, Start, Goal):
 		self.OPEN = []
 		self.CLOSED = []		
 		self.Start = Start
 		self.Goal = Goal
-		self.SearchSpace = SearchSpace
+		self.SearchSpace = M_SearchSpace
 		self.currentNode = Start
 		
-	def Run(self):
-		self.OPEN.append(Start)
-		
-		while not self.OPEN and not self.Goal in self.OPEN:
-			current = self.FindFScore(self.OPEN)
-			self.FindAdj(current)
-			self.OPEN.append(adj)
-			self.OPEN.remove(current)
-			self.CLOSED.append(current)
-				
 		
 	def ManDis (self, Node1, Node2):
 		Xdis = abs(Node1.pos[0]-Node2.pos[0])
@@ -66,9 +56,29 @@ class Astar:
 		#print Xdis, ",", Ydis
 		Node2.h = Xdis + Ydis
 		
+	def Start(self):
+		#sets the current node to the starting node.
+		self.currentNode = self.start
+		#Add to the Open List
+		self.OPEN.append(self.currentNode)
+		FindAdj(self.currentNode)
+		
+			
+		
+		self.OPEN.remove(self.currentNode)
+		self.CLOSED.append(self.currentNode)
+		
+		
+		
+	
+	
+			
+
+	
 	
 	def FindAdj (self, CurrentNode):
 		node = CurrentNode
+		
 		#for n in self.SearchSpace:
 		rows = 10
 		col = 10
@@ -82,7 +92,17 @@ class Astar:
 		Northeast = CurrentNode.id - rows + 1
 		Southwest = CurrentNode.id + rows - 1
 		Southeast = CurrentNode.id + rows + 1
-		neNode = SearchSpace[Northwest]
+		neNode = self.SearchSpace[Northeast]
+		nwNode = self.SearchSpace[Northwest]
+		sNode = self.SearchSpace[South]
+		swNode = self.SearchSpace[Southwest]
+		eNode = self.SearchSpace[East]
+		seNode = self.SearchSpace[Southeast]
+		nNode = self.SearchSpace[North]
+		wNode = self.SearchSpace[West]
+		
+		
+		
 		if CurrentNode.id % rows == 0:
 			West = 200
 			Northwest = 200
@@ -92,31 +112,23 @@ class Astar:
 			Northeast = 200
 			Southeast = 200
 		if id == 200:
-			node.walkable = false
+			node.walkable = False
 		
 			
 		node.adj = [North,South,East,West,Northeast,Northwest,Southeast,Southwest]
 		
-		
-		
-		for a in adj:
-			if a in self.searchSpace:
-				node.adj.append(self.SearchSpace[a])
-				print(SearchSpace[a])
-				
-		#self.SearchSpace[adj[0]].g = 0
-		#self.SearchSpace[adj[1]].g = 10
-		#self.SearchSpace[adj[2]].g = 10
-		#self.SearchSpace[adj[3]].g = 10
-		#self.SearchSpace[adj[4]].g = 10
-		#self.SearchSpace[adj[5]].g = 14
-		#self.SearchSpace[adj[6]].g = 14
-		#self.SearchSpace[adj[7]].g = 14
-		#self.SearchSpace[adj[8]].g = 14
+		neNode.g = 14
+		eNode.g = 10
+		seNode.g = 14
+		swNode.g = 14
+		sNode.g = 10
+		nNode.g = 10
+		nwNode.g = 14
+		wNode.g = 10
 		
 		print "North: ", North, ", South: ", South, ", West: ", West, ", East: ", East
 		print "Northwest: ", Northwest, ", Northeast: ", Northeast, ", Southeast: ", Southwest, ", Southeast: ", Southeast
-	
+		return North,South,East, West, Northeast, Northwest, Southwest, Southeast
 	def FindFScore(array):
 		for element in array:
 			list.sort(array)
