@@ -40,7 +40,7 @@ class Node:
 		
 		self.g = val
 
-class Astar:
+class Astar(object):
 	def __init__(self, M_SearchSpace, Start, Goal):
 		self.OPEN = []
 		self.CLOSED = []		
@@ -104,14 +104,14 @@ class Astar:
 		
 		
 		if CurrentNode.id % rows == 0:
-			West = 200
-			Northwest = 200
-			Southwest = 200
+			West = None
+			Northwest = None
+			Southwest = None
 		if CurrentNode.id % rows == (rows - 1):
-			East = 200
-			Northeast = 200
-			Southeast = 200
-		if id == 200:
+			East = None
+			Northeast = None
+			Southeast = None
+		if id == None:
 			node.walkable = False
 		
 			
@@ -128,9 +128,26 @@ class Astar:
 		
 		print "North: ", North, ", South: ", South, ", West: ", West, ", East: ", East
 		print "Northwest: ", Northwest, ", Northeast: ", Northeast, ", Southeast: ", Southwest, ", Southeast: ", Southeast
-		return North,South,East, West, Northeast, Northwest, Southwest, Southeast
-	def FindFScore(array):
-		for element in array:
-			list.sort(array)
-			return(array[0])
-		print ("List: ", array[0])
+		near = []
+		if nNode.walkable == True:
+			near.append(nNode)
+		if sNode.walkable == True:
+			near.append(sNode)
+		if eNode.walkable == True:
+			near.append(eNode)
+		if wNode.walkable == True:
+			near.append(wNode)
+		if nwNode.walkable == True:
+			near.append(nwNode)
+		if swNode.walkable == True:
+			near.append(swNode)
+		if neNode.walkable == True:
+			near.append(neNode)
+		if seNode.walkable == True:
+			near.append(seNode)	
+		return [near]
+	def FindFScore(self, array):
+		#for element in array:
+		list.sort(array)
+		return(array[0])
+		

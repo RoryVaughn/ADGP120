@@ -6,7 +6,7 @@ def main():
 	rows = 10
 	col = 10
 	id = 0
-
+	neighbors = []
 	#create the search space to look through
 	searchSpace = []
 	for y in range(col):
@@ -34,20 +34,31 @@ def main():
 	#The following code is what sets the H value to all of the nodes
 	c = 0
 	for j in searchSpace:
-		n.H = Instance.ManDis(searchSpace[13], searchSpace[c])
+		n.H = Instance.ManDis(searchSpace[23], searchSpace[c])
 		c+=1
 	
 	#################################
+
+	Instance.OPEN.append(searchSpace[23])
+	#while Instance.CLOSED != searchSpace[85]:
+	variable = Instance.FindFScore(Instance.OPEN)
+		#finds lowest F and sorts by lowest F.
+	print variable
+	Instance.CLOSED.append(variable)
+		#adds the lowers(current node) to the closed list.
+	
+	print Instance.OPEN[0]
+	neighbors = Instance.FindAdj (variable)
+		#finds the neighbors of the current node.
+	print neighbors
+	Instance.OPEN.remove(variable)
+		#removes the current node from the open list.
+	Instance.OPEN.append(neighbors)
+		#adds the neigbor nodes to the open list.
 	
 	
 	
-	#dickbutt.ManDis (searchSpace[0], searchSpace[10])
-	Node3 = Node (3 , 3, 33)
-	Instance.OPEN.append(searchSpace[13])
-	Instance.FindAdj (Instance.OPEN[0])
 	
-	#Instance.FindFScore(Instance.OPEN)
-		
 	
 	#print(searchSpace[])
 	
@@ -70,7 +81,24 @@ def main():
 	clock = pygame.time.Clock()
 
 
-
+	#while not over:
+		#variable = Instance.FindFScore(Instance.OPEN)
+		#finds lowest F and sorts by lowest F.
+		#print variable
+		#Instance.CLOSED.append(variable)
+		#adds the lowers(current node) to the closed list.
+	
+		#print Instance.OPEN[0]
+		#neighbors = Instance.FindAdj (variable)
+		#finds the neighbors of the current node.
+		#print neighbors
+		#Instance.OPEN.remove(variable)
+		#removes the current node from the open list.
+		#Instance.OPEN.append(neighbors)
+		#adds the neigbor nodes to the open list.
+		
+		#if searchSpace[85] in Instance.CLOSED:
+		#	over = True
 	# -------- Main Program Loop -----------
 	while not done:
 		for event in pygame.event.get():  # User did something
