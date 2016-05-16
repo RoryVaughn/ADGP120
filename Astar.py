@@ -5,7 +5,7 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 class Node:
 	def __init__(self, M_x, M_y, M_id):
-		self.parent = None		
+		self.parent = None	
 		self.id = M_id
 		self.color = WHITE
 		self.width = 20
@@ -37,8 +37,9 @@ class Node:
 	def setH(self, val):
 		self.h = val
 	def setG(self, val):
-		
 		self.g = val
+	def Fkey(Node):
+		return getF(Node)
 
 class Astar(object):
 	def __init__(self, M_SearchSpace, Start, Goal):
@@ -46,6 +47,7 @@ class Astar(object):
 		self.CLOSED = []		
 		self.Start = Start
 		self.Goal = Goal
+		self.Parents = []
 		self.SearchSpace = M_SearchSpace
 		self.currentNode = Start
 		
@@ -63,19 +65,9 @@ class Astar(object):
 		self.OPEN.append(self.currentNode)
 		FindAdj(self.currentNode)
 		
-			
-		
 		self.OPEN.remove(self.currentNode)
 		self.CLOSED.append(self.currentNode)
 		
-		
-		
-	
-	
-			
-
-	
-	
 	def FindAdj (self, CurrentNode):
 		node = CurrentNode
 		
@@ -100,6 +92,16 @@ class Astar(object):
 		seNode = self.SearchSpace[Southeast]
 		nNode = self.SearchSpace[North]
 		wNode = self.SearchSpace[West]
+		neNode.parent = Current
+		neNode.parent = Current
+		nwNode.parent = Current
+		sNode.parent = Current
+		swNode.parent = Current
+		eNode.parent = Current
+		seNode.parent = Current
+		nNode.parent = Current
+		wNode.parent = Current
+		
 		
 		
 		
@@ -146,8 +148,16 @@ class Astar(object):
 		if seNode.walkable == True:
 			near.append(seNode)	
 		return [near]
-	def FindFScore(self, array):
-		#for element in array:
-		list.sort(array)
-		return(array[0])
+	#def FindFScore(self, array):
+		#return(array[0])
+	def FindLowestF(self, array):	
+		lowestF = None
+		for a in array:			
+			if lowestF == None:	
+				lowestF = a		
+				
+			elif(n.getF() < lowestF.getF()):	
+				lowestF = a
+		
+		return lowestF
 		

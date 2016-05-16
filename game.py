@@ -28,7 +28,7 @@ def main():
 			searchSpace.append(n)
 	
 
-	Instance = Astar(searchSpace, searchSpace[13], searchSpace[85])
+	Instance = Astar(searchSpace, searchSpace[23], searchSpace[85])
 	
 	
 	#The following code is what sets the H value to all of the nodes
@@ -40,24 +40,26 @@ def main():
 	#################################
 
 	Instance.OPEN.append(searchSpace[23])
-	#while Instance.CLOSED != searchSpace[85]:
-	variable = Instance.FindFScore(Instance.OPEN)
+	Finished = False
+	while not Finished:
+		variable = Instance.FindLowestF(Instance.OPEN)
 		#finds lowest F and sorts by lowest F.
-	print variable
-	Instance.CLOSED.append(variable)
-		#adds the lowers(current node) to the closed list.
-	
-	print Instance.OPEN[0]
-	neighbors = Instance.FindAdj (variable)
+		print variable
+		Instance.CLOSED.append(variable)
+		Instance.Parents.append(variable)
+		#adds the (current node) to the closed list.
+		neighbors = Instance.FindAdj (variable)
 		#finds the neighbors of the current node.
-	print neighbors
-	Instance.OPEN.remove(variable)
+		print neighbors
+		Instance.OPEN.remove(variable)
 		#removes the current node from the open list.
-	Instance.OPEN.append(neighbors)
+		Instance.OPEN.append(neighbors)
+		if Instance.CLOSED == searchSpace[85] or Instance.OPEN == None:
+			Finished = True
+			print(Instance.Parents)
 		#adds the neigbor nodes to the open list.
 	
-	
-	
+
 	
 	
 	#print(searchSpace[])
