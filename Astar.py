@@ -68,6 +68,7 @@ class Astar(object):
 		self.OPEN.remove(self.currentNode)
 		self.CLOSED.append(self.currentNode)
 		
+		
 	def FindAdj (self, CurrentNode):
 		node = CurrentNode
 		
@@ -147,7 +148,7 @@ class Astar(object):
 			near.append(neNode)
 		if seNode.walkable == True:
 			near.append(seNode)	
-		return [near]
+		return near
 	#def FindFScore(self, array):
 		#return(array[0])
 	def FindLowestF(self, array):	
