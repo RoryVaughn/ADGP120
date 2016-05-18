@@ -5,7 +5,7 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 class Node:
 	def __init__(self, M_x, M_y, M_id):
-		self.parent = None	
+		self.parent = None
 		self.id = M_id
 		self.color = WHITE
 		self.width = 20
@@ -57,15 +57,52 @@ class Astar(object):
 		self.SearchSpace = M_SearchSpace
 		self.currentNode = Start
 		self.Path = []
+		for i in self.SearchSpace:
+			i.h = self.Manhattan_Distance(i, self.Goal)
+		
+	def Manhattan_Distance(self, current, goal):
+		return self.ManDis(current, goal)
+	
+	def Run(self):
+		open = self.OPEN
+		closed = self.CLOSED
+		start = self.Start
+		goal = self.Goal
+		open.append(start)
+		#THIS IS THE ASTAR LOOP
+		while open:#while open is not empty
+			current = self.FindLowestF(open)
+			#finds lowest F and sorts by lowest F
+			closed.append(current)	
+			#Adds the current node to the closed 
+			open.remove(current)
+			#removes the current node from the open list.
+			self.FindAdj(current)
+			#checks the 8 adjacent squares unless if they are not walkable, or in the closed list.
+			#if it isnt already in the open list it adds it there.
+			#then makes it the parent of the current square.
+			if goal in open:
+				print "Goal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+				break
+			if open is None:
+				print "No goal :("
+				break
+				#stops the loop when the goal is in the open list bescause the path has been found
+				#or stops when every checkable node in range has been chacked and the goal node is not reachable.
+
+	
 		
 	def GeneratePath (self):
+		path = []
 		next = self.Goal
 		print "The Path that was found is: "
 		while(next != None): 
-			print (" Node (index)->"), next.id
+			path.append(next)
+			print ("Node (index)->"), next.id
 			next.partOfPath = True  # decide whether to turn the node blue
-			self.Path.append(next) #adds the correct nodes to the path list for the final path.
+			#self.Path.append(next) #adds the correct nodes to the path list for the final path.
 			next = next.parent #tracks the list of parents in order to back track though the list of parented nodes.
+		return path
 	
 	def ManDis (self, Node1, Node2):
 		Xdis = abs(Node1.xPos- Node2.xPos)
@@ -135,12 +172,17 @@ class Astar(object):
 			if(self.SearchSpace[Northwest].walkable == True and self.SearchSpace[Northwest] not in self.CLOSED and self.SearchSpace[Northwest] not in self.OPEN):
 				self.OPEN.append(self.SearchSpace[Northwest]) #add Northwest node to the open list
 				self.SearchSpace[Northwest].parent = CurrentNode #sets the parent of the Northwest node as the current node
-	def FindLowestF(self,array):	
-		lowestF = array[0]	# lowestF score node
-		for a in array:		
-			if(a.getF < lowestF.getF):
-				lowestF = a
-		return lowestF
+	
+	
+	
+	def FindLowestF(self, list):	
+		LowF = None 
+		for a in list:	#Repeats the loop for the amount of nodes in the open list
+			if LowF == None: #sets the first node to a.
+				LowF = a		
+			elif(a.getF() < LowF.getF()): #checks through the list in order to get the lowest F Value.
+				Lowf = a #The final value that makes it through the list will be the return value.
+		return LowF
 		
 		#Matthews stuff
 		#self.OPEN.sort(key = lambda x : x.f)

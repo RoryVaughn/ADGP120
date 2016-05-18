@@ -27,40 +27,22 @@ def main():
 			searchSpace.append(n) #adds the nodes to the searchspace
 	
 
-	Instance = Astar(searchSpace, searchSpace[23], searchSpace[85])
+	algo = Astar(searchSpace, searchSpace[23], searchSpace[85])
+	algo.Run()
+	path = algo.GeneratePath()
+	for i in path:
+		print i.id
+
 	# This creates the Astar and sets seachspace, the start node, and the goal node.
 	
 	#The following code is what sets the H value to all of the nodes
-	c = 0 # c is the index of the node that the h score will be set to.
-	for j in searchSpace: #for each node in search space (0-99)
-		n.H = Instance.ManDis(searchSpace[23], searchSpace[c]) #Gets the Manhattand Distance AKA the H score
-		c+=1
+	#c = 0 # c is the index of the node that the h score will be set to.
+	#for j in searchSpace: #for each node in search space (0-99)
+	#	n.H = Instance.ManDis(searchSpace[23], searchSpace[c]) #Gets the Manhattand Distance AKA the H score
+	#	c+=1
 
-#############################################################
 
-	start = searchSpace[23]
-	Instance.OPEN.append(start) # Adds the start node to the open list
-	
-	#THIS IS THE ASTAR LOOP
-	while Instance.OPEN:
-		current = Instance.FindLowestF(Instance.OPEN)
-		#finds lowest F and sorts by lowest F
-		Instance.CLOSED.append(current)	
-		#Adds the current node to the closed 
-		Instance.OPEN.remove(current)
-		#removes the current node from the open list.
-		Instance.FindAdj(current)
-		#checks the 8 adjacent squares unless if they are not walkable, or in the closed list.
-		#if it isnt already in the open list it adds it there.
-		#then makes it the parent of the current square.
-		if Instance.Goal in Instance.OPEN or Instance.OPEN[0] == None:
-			break;
-			#stops the loop when the goal is in the open list bescause the path has been found
-			#or stops when every checkable node in range has been chacked and the goal node is not reachable.
 
-	print "Goal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-###############################################################
-	Instance.GeneratePath()
 	
 	# Initialize pygame
 	pygame.init()
@@ -101,6 +83,6 @@ def main():
 	# Be IDLE friendly. If you forget this line, the program will 'hang'
 	# on exit.
 	pygame.quit()
-
 main()
+
 
