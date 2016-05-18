@@ -18,6 +18,7 @@ class Node:
 		self.xPos = M_x
 		self.yPos = M_y
 		self.f = 0
+		self.partOfPath = False
 		#f is g + h
 		self.g = 0
 		#g is the triangle thing with 0, 10, 14, and 20
@@ -27,6 +28,9 @@ class Node:
 	def draw(self, screen, color):
 		margin = self.margin
 		color = WHITE if (self.walkable) else (255,0,0)
+		if(self.partOfPath == True):
+			color = (0,120,120)
+		
 		gfx.draw.rect(screen, color, (self.left , self.top, self.width, self.height))
 		
 	def setWalk(self, walkable):
@@ -50,13 +54,23 @@ class Astar(object):
 		self.Parents = []
 		self.SearchSpace = M_SearchSpace
 		self.currentNode = Start
+		self.Path = []
 		
-		
+	def GeneratePath (self):
+		next = self.Goal
+		while(next != None):
+			print next.id, (", ")
+			next.partOfPath = True
+			self.Path.append(next)
+			next = next.parent
+	
 	def ManDis (self, Node1, Node2):
-		Xdis = abs(Node1.pos[0]-Node2.pos[0])
-		Ydis = abs(Node1.pos[1]-Node2.pos[1])
+		Xdis = abs(Node1.xPos- Node2.xPos)
+		Ydis = abs(Node1.yPos- Node2.yPos)
 		#print Xdis, ",", Ydis
-		Node2.h = Xdis + Ydis
+		return Xdis + Ydis
+		
+		
 		
 	def Start(self):
 		#sets the current node to the starting node.
@@ -70,95 +84,87 @@ class Astar(object):
 		
 		
 	def FindAdj (self, CurrentNode):
-		node = CurrentNode
+		#node = CurrentNode
+		
+		#print CurrentNode.id	# is hit
 		
 		#for n in self.SearchSpace:
 		rows = 10
 		col = 10
 		adj = []
-		Current = CurrentNode.id
-		North = CurrentNode.id - rows 
-		South = CurrentNode.id + rows
-		West = CurrentNode.id - 1
-		East = CurrentNode.id + 1
-		Northwest = CurrentNode.id - rows - 1
-		Northeast = CurrentNode.id - rows + 1
-		Southwest = CurrentNode.id + rows - 1
-		Southeast = CurrentNode.id + rows + 1
-		neNode = self.SearchSpace[Northeast]
-		nwNode = self.SearchSpace[Northwest]
-		sNode = self.SearchSpace[South]
-		swNode = self.SearchSpace[Southwest]
-		eNode = self.SearchSpace[East]
-		seNode = self.SearchSpace[Southeast]
-		nNode = self.SearchSpace[North]
-		wNode = self.SearchSpace[West]
-		neNode.parent = Current
-		neNode.parent = Current
-		nwNode.parent = Current
-		sNode.parent = Current
-		swNode.parent = Current
-		eNode.parent = Current
-		seNode.parent = Current
-		nNode.parent = Current
-		wNode.parent = Current
+		#Current = CurrentNode.id	# Wack
 		
+		North 		= CurrentNode.id - rows 
+		South 		= CurrentNode.id + rows
+		West 		= CurrentNode.id - 1
+		East 		= CurrentNode.id + 1
+		Northwest 	= CurrentNode.id - rows - 1
+		Northeast 	= CurrentNode.id - rows + 1
+		Southwest 	= CurrentNode.id + rows - 1
+		Southeast 	= CurrentNode.id + rows + 1
 		
+		if CurrentNode.id % rows != 0:	#left check
+			if(self.SearchSpace[East].walkable == True and self.SearchSpace[East] not in self.CLOSED and self.SearchSpace[East] not in self.OPEN):
+				print "Hi Left"
+				self.OPEN.append(self.SearchSpace[East])
+				self.SearchSpace[East].parent = CurrentNode
+				
+		if CurrentNode.id % rows != 9:	# Right Check
+			if(self.SearchSpace[West].walkable == True and self.SearchSpace[West] not in self.CLOSED and self.SearchSpace[West] not in self.OPEN):
+				print "Hi Right"
+				self.OPEN.append(self.SearchSpace[West])
+				self.SearchSpace[West].parent = CurrentNode
+		if CurrentNode.id > rows - 1:	# North check
+			if(self.SearchSpace[North].walkable == True and self.SearchSpace[North] not in self.CLOSED and self.SearchSpace[North] not in self.OPEN):
+				self.OPEN.append(self.SearchSpace[North])
+				print "Hi North"
+				self.SearchSpace[North].parent = CurrentNode
+		if CurrentNode.id < 90:		# South Check
+			if(self.SearchSpace[South].walkable == True and self.SearchSpace[South] not in self.CLOSED and self.SearchSpace[South] not in self.OPEN):
+				self.OPEN.append(self.SearchSpace[South])
+				print "Hi south"
+				self.SearchSpace[South].parent = CurrentNode
+		if CurrentNode.id < 90 and CurrentNode.id % rows != 9:	# Southwest Check
+			if(self.SearchSpace[Southwest].walkable == True and self.SearchSpace[Southwest] not in self.CLOSED and self.SearchSpace[Southwest] not in self.OPEN):
+				self.OPEN.append(self.SearchSpace[Southwest])
+				print "1"
+				self.SearchSpace[Southwest].parent = CurrentNode
+		if CurrentNode.id < 90 and CurrentNode.id % rows != 0:	# Southeast Check
+			if(self.SearchSpace[Southeast].walkable == True and self.SearchSpace[Southeast] not in self.CLOSED and self.SearchSpace[Southeast] not in self.OPEN):
+				self.OPEN.append(self.SearchSpace[Southeast])
+				print "2"
+				self.SearchSpace[Southeast].parent = CurrentNode
+		if CurrentNode.id > rows - 1 and CurrentNode.id % rows != 0:	# NorthEast
+			if(self.SearchSpace[Northeast].walkable == True and self.SearchSpace[Northeast] not in self.CLOSED and self.SearchSpace[Northeast] not in self.OPEN):
+				self.OPEN.append(self.SearchSpace[Northeast])
+				print "3"
+				self.SearchSpace[Northeast].parent = CurrentNode
+		if CurrentNode.id > rows - 1 and CurrentNode.id % rows != 9:	#NorthWest
+			if(self.SearchSpace[Northwest].walkable == True and self.SearchSpace[Northwest] not in self.CLOSED and self.SearchSpace[Northwest] not in self.OPEN):
+				self.OPEN.append(self.SearchSpace[Northwest])
+				print "4"
+				self.SearchSpace[Northwest].parent = CurrentNode
+				
+				
+	
+		self.SearchSpace[Northwest].g = 14
+		self.SearchSpace[Northeast].g = 14
+		self.SearchSpace[Southeast].g = 14
+		self.SearchSpace[Southwest].g = 14
+		self.SearchSpace[North].g = 10
+		self.SearchSpace[South].g = 10
+		self.SearchSpace[East].g = 10
+		self.SearchSpace[West].g = 10
 		
-		
-		if CurrentNode.id % rows == 0:
-			West = None
-			Northwest = None
-			Southwest = None
-		if CurrentNode.id % rows == (rows - 1):
-			East = None
-			Northeast = None
-			Southeast = None
-		if id == None:
-			node.walkable = False
-		
-			
-		node.adj = [North,South,East,West,Northeast,Northwest,Southeast,Southwest]
-		
-		neNode.g = 14
-		eNode.g = 10
-		seNode.g = 14
-		swNode.g = 14
-		sNode.g = 10
-		nNode.g = 10
-		nwNode.g = 14
-		wNode.g = 10
-		
-		print "North: ", North, ", South: ", South, ", West: ", West, ", East: ", East
-		print "Northwest: ", Northwest, ", Northeast: ", Northeast, ", Southeast: ", Southwest, ", Southeast: ", Southeast
-		near = []
-		if nNode.walkable == True:
-			near.append(nNode)
-		if sNode.walkable == True:
-			near.append(sNode)
-		if eNode.walkable == True:
-			near.append(eNode)
-		if wNode.walkable == True:
-			near.append(wNode)
-		if nwNode.walkable == True:
-			near.append(nwNode)
-		if swNode.walkable == True:
-			near.append(swNode)
-		if neNode.walkable == True:
-			near.append(neNode)
-		if seNode.walkable == True:
-			near.append(seNode)	
-		return near
 	#def FindFScore(self, array):
 		#return(array[0])
-	def FindLowestF(self, array):	
-		lowestF = None
-		for a in array:			
-			if lowestF == None:	
-				lowestF = a		
-				
-			elif(n.getF() < lowestF.getF()):	
+	def FindLowestF(self):	
+		'''lowestF = array[0]	# lowestF score node
+		for a in array:		
+			if(a.getF < lowestF.getF):
 				lowestF = a
+		return lowestF'''
+		self.OPEN.sort(key = lambda x : x.f)
+		return self.OPEN[0]
 		
-		return lowestF
 		

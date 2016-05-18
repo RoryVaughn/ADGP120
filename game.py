@@ -17,13 +17,13 @@ def main():
 			#x goes right
 			#y goes down
 			
-			unwalkable = True if (x >= 1 and x <= 8 and y >= 1 and y <= 8) else False
+			#unwalkable = True if (x >= 1 and x <= 8 and y >= 1 and y <= 8) else False
 			#print("x =:{mx} y=: {my} | pos =: {position}".format(mx = x, my = y, position = n.pos))
-			n.setWalk(unwalkable)
+			#n.setWalk(unwalkable)
 			
-			for x in range(rows):
-				if n.id == randint(40,60):
-					n.walkable = False
+			#for x in range(rows):
+				#if n.id == randint(40,60):
+					#n.walkable = False
 			
 			searchSpace.append(n)
 	
@@ -38,33 +38,46 @@ def main():
 		c+=1
 	
 	#################################
-
+	'''
 	Instance.OPEN.append(searchSpace[23])
 	Finished = False
-	while not Finished:
-		variable = Instance.FindLowestF(Instance.OPEN)
-		#finds lowest F and sorts by lowest F.
-		print variable
-		Instance.CLOSED.append(variable)
-		Instance.Parents.append(variable)
+							#
+	variable = Instance.FindLowestF(Instance.OPEN)
+	#finds lowest F and sorts by lowest F.
+	print variable
+	Instance.CLOSED.append(variable)
+	Instance.Parents.append(variable)
 		#adds the (current node) to the closed list.
-		neighbors = Instance.FindAdj (variable)
+	neighbors = Instance.FindAdj (variable)
 		#finds the neighbors of the current node.
-		print neighbors
-		Instance.OPEN.remove(variable)
+	print neighbors
+	Instance.OPEN.remove(variable)
 		#removes the current node from the open list.
-		Instance.OPEN.append(neighbors)
-		if Instance.CLOSED == searchSpace[85] or Instance.OPEN == None:
-			Finished = True
-			print(Instance.Parents)
+	Instance.OPEN.append(neighbors)
+	#if Instance.CLOSED == searchSpace[85] or Instance.OPEN == None:
+			#Finished = True
+	print(Instance.Parents)
 		#adds the neigbor nodes to the open list.
+	'''
+	start = searchSpace[23]
+	Instance.OPEN.append(start)
 	
+	Finished = False
+	#while Finished == False:
+	while Instance.OPEN:
+		current = Instance.FindLowestF()
+		#finds lowest F and sorts by lowest F
+		Instance.CLOSED.append(current)		
+		Instance.FindAdj(current)
+		
+		Instance.OPEN.remove(current)
+		
+		if Instance.Goal in Instance.OPEN or Instance.OPEN[0] == None:
+			break;
 
+	print "Goal!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
 	
-	
-	#print(searchSpace[])
-	
-	
+	Instance.GeneratePath()
 	
 	# Initialize pygame
 	pygame.init()
@@ -72,6 +85,7 @@ def main():
 	# Set the HEIGHT and WIDTH of the screen
 	WINDOW_SIZE = [700, 500]
 	screen = pygame.display.set_mode(WINDOW_SIZE)
+	
 
 	# Set title of screen
 	pygame.display.set_caption("Astar")
@@ -115,7 +129,6 @@ def main():
  
 		for i in searchSpace:
 			i.draw(screen, (255,255,255))
-			
 			
 			
 		# Limit to 60 frames per second
