@@ -1,14 +1,13 @@
 # ADGP120
 Python Astar project
 
-The program in it's current state does find the static goal of node [85] from the 
-starting node [23]. However, it does not find the path in the correct Astar method.
+The program in it's current state does find the static goal of node [85] from the starting node [23], using the A Star algorithm.
 
 The white nodes are walkable nodes, the red nodes are unwalkable nodes(and therefore untargetable for the path) The program highlights the path that it chooses from the white nodes, as the blue nodes.
+
 The program also prints the list of nodes in the "parent" list.
 
-The Astar algorithm that I am trying to implement in Python for ADGP120 is a pathfinding algorithm that
-could pass for AI or Artificial Inteligence.
+The Astar algorithm that I implement in Python for ADGP120 is a pathfinding algorithm that could pass for AI or Artificial Inteligence.
 
 That algorithm should be as follows:
 
