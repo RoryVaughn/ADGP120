@@ -9,6 +9,8 @@ The program also prints the list of nodes in the "parent" list.
 
 The Astar algorithm that I implement in Python for ADGP120 is a pathfinding algorithm that could pass for AI or Artificial Inteligence.
 
+An algorithm is something that should be implemented is such a way that it can just be called from the main, and it will run the algorithm(as in a class that can be created as an instance and use its own functions to complete its task). It should not be spaghetti code that is littered thoughout the main.
+
 That algorithm should be as follows:
 
 1: Add the starting node to the Open list.
